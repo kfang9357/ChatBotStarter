@@ -1,6 +1,6 @@
 import java.util.Random;
 import java.util.Scanner;
-
+//This is Jackson's bot
 /**
  * A program to carry on conversations with a human user.
  * This version:
@@ -28,21 +28,21 @@ public class ChatBot1
 
 			statement = in.nextLine();
 			//getResponse handles the user reply
-			System.out.println(getResponse(statement));
+		System.out.println(getResponse(statement));
 
 
-		}
+	}
 
 	}
 	/**
 	 * Get a default greeting 	
 	 * @return a greeting
-	 */	
+	 */
 	public String getGreeting()
 	{
-		return "Hi, what is up?";
+		return "Breakfast time! How hangry are you?";
 	}
-	
+
 	/**
 	 * Gives a response to a user statement
 	 * 
@@ -59,20 +59,20 @@ public class ChatBot1
 			response = "Say something, please.";
 		}
 
-		else if (findKeyword(statement, "no") >= 0)
+		else if (findKeyword(statement, "not very") >= 0)
 		{
-			response = "Why so negative?";
-                	emotion--;
+			response = "Well, that's good. What would you like to eat?";
+                	emotion++;
 		}
 		
-		else if (findKeyword(statement, "levin") >= 0)
+		else if (findKeyword(statement, "not that") >= 0)
 		{
-			response = "More like LevinTheDream, amiright?";
+			response = "Glad to hear it. What would you like to eat";
 			emotion++;
 		}
-		else if (findKeyword(statement, "folwell") >= 0)
+		else if (findKeyword(statement, "very") >= 0)
 		{
-			response = "Watch your backpacks, Mr. Folwell doesn't fall well.";
+			response = "Woah, better order quick then. What would you like to eat?";
 			emotion++;
 		}
 		else if (findKeyword(statement, "goldman") >= 0)
@@ -140,7 +140,7 @@ public class ChatBot1
 		}
 		int psn = findKeyword (statement, "I want", 0);
 		String restOfStatement = statement.substring(psn + 6).trim();
-		return "Would you really be happy if you had " + restOfStatement + "?";
+		return "" + restOfStatement + "Is a great choice! It's added to your order. Anything else?";
 	}
 	
 	
@@ -150,7 +150,7 @@ public class ChatBot1
 	 * @param statement the user statement, assumed to contain "I" followed by "you"
 	 * @return the transformed statement
 	 */
-	private String transformIYouStatement(String statement)
+	private String transformIStatement(String statement)
 	{
 		//  Remove the final period, if there is one
 		statement = statement.trim();

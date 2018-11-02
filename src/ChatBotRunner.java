@@ -19,8 +19,9 @@ public class ChatBotRunner
 		
 
 		Scanner in = new Scanner (System.in);
-		System.out.println("Welcome to the chatbot, nice to meet you.");
+		System.out.println("Welcome to WackDonalds, are you here for breakfast, lunch, or dinner?");
 		String statement = in.nextLine();
+		if (findKeyword(statement, "not very") >= 0)
 
 
 		while (!statement.equals("Bye"))
