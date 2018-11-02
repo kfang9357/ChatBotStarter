@@ -9,8 +9,12 @@ import java.util.Scanner;
  */
 public class ChatBot3
 {
-	//emotion can alter the way our bot responds. Emotion can become more negative or positive over time.
-	int emotion = 0;
+	//Keeps track of the number of items ordered and presents a bill at the end
+	int items = 0;
+	int drinks = 0;
+	int appetizers = 0;
+	int entrees = 0;
+	int dessert = 0;
 
 
 
@@ -74,9 +78,9 @@ public class ChatBot3
 		}
 
 		// Response transforming I want to statement
-		else if (findKeyword(statement, "I want to", 0) >= 0)
+		else if (findKeyword(statement, "I would like a", 0) >= 0)
 		{
-			response = transformIWantToStatement(statement);
+			response = transformCanIGetStatement(statement);
 		}
 		else if (findKeyword(statement, "I want",0) >= 0)
 		{
@@ -119,9 +123,8 @@ public class ChatBot3
 	 * @param statement the user statement, assumed to contain "I want"
 	 * @return the transformed statement
 	 */
-	private String transformIWantStatement(String statement)
+	private String transformCanIGetStatement(String statement)
 	{
-		//  Remove the final period, if there is one
 		statement = statement.trim();
 		String lastChar = statement.substring(statement
 				.length() - 1);
@@ -130,9 +133,9 @@ public class ChatBot3
 			statement = statement.substring(0, statement
 					.length() - 1);
 		}
-		int psn = findKeyword (statement, "I want", 0);
-		String restOfStatement = statement.substring(psn + 6).trim();
-		return "Would you really be happy if you had " + restOfStatement + "?";
+		int psn = findKeyword (statement, "Can I get a", 0);
+		String restOfStatement = statement.substring(psn+11).trim();
+		return "I am adding" + restOfStatement + " to your order. What else would you like?";
 	}
 	
 	
