@@ -12,6 +12,7 @@ public class ChatBot2
 	//emotion can alter the way our bot responds. Emotion can become more negative or positive over time.
 	int emotion = 0;
 	int items = 0;
+	int 
 
 
 
