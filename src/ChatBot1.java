@@ -11,7 +11,8 @@ public class ChatBot1
 {
 	//emotion can alter the way our bot responds. Emotion can become more negative or positive over time.
 	int emotion = 0;
-
+	String[] responses = {"Well, that's good. What would you like to eat?", "Glad to hear it. What would you like to eat",
+			"Woah, better order quick then. What would you like to eat?", };
 	/**
 	 * Runs the conversation for this particular chatbot, should allow switching to other chatbots.
 	 * @param statement the statement typed by the user
@@ -73,7 +74,7 @@ public class ChatBot1
 		else if (findKeyword(statement, "very") >= 0)
 		{
 			response = "Woah, better order quick then. What would you like to eat?";
-			emotion++;
+			emotion--;
 		}
 		else if (findKeyword(statement, "goldman") >= 0)
 		{
