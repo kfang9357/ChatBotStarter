@@ -46,7 +46,7 @@ public class ChatBot3
 	 */	
 	public String getGreeting()
 	{
-		return "Hi, what is up?";
+		return "Hi, welccome to Wackdonalds. I will be your server today. What kind of refreshment can I offer you?";
 	}
 	
 	/**
@@ -65,26 +65,31 @@ public class ChatBot3
 			response = "Say something, please.";
 		}
 
-		else if (findKeyword(statement, "no") >= 0)
+		else if (findKeyword(statement, "soda") >= 0)
 		{
-			response = "Why so negative?";
+			response = "We have Coke, Sprite and Fanta. ";
                 	emotion--;
 		}
 		
-		else if (findKeyword(statement, "levin") >= 0)
+		else if (findKeyword(statement, "water") >= 0)
 		{
-			response = "More like LevinTheDream amiright?";
+			response = "Would you like that with ice?";
+			emotion++;
+		}
+		else if (findKeyword(statement, "alcohol") >= 0)
+		{
+			response = "We have red wine and white wine.";
 			emotion++;
 		}
 
 		// Response transforming I want to statement
-		else if (findKeyword(statement, "I would like a", 0) >= 0)
+		else if (findKeyword(statement, "I would like to have ", 0) >= 0)
 		{
 			response = transformCanIGetStatement(statement);
 		}
-		else if (findKeyword(statement, "I want",0) >= 0)
+		else if (findKeyword(statement, "Do you have ",0) >= 0)
 		{
-			response = transformIWantStatement(statement);
+			response = transformDoYouHaveStatement(statement);
 		}	
 		else
 		{
@@ -100,7 +105,7 @@ public class ChatBot3
 	 * @param statement the user statement, assumed to contain "I want to"
 	 * @return the transformed statement
 	 */
-	private String transformIWantToStatement(String statement)
+	private String transformDoYouHaveStatement(String statement)
 	{
 		//  Remove the final period, if there is one
 		statement = statement.trim();
@@ -111,9 +116,9 @@ public class ChatBot3
 			statement = statement.substring(0, statement
 					.length() - 1);
 		}
-		int psn = findKeyword (statement, "I want to", 0);
-		String restOfStatement = statement.substring(psn + 9).trim();
-		return "Why do you want to " + restOfStatement + "?";
+		int psn = findKeyword (statement, "Do you have", 0);
+		String restOfStatement = statement.substring(psn + 12).trim();
+		return "Yes. We have " + restOfStatement + ".";
 	}
 
 	
@@ -145,7 +150,7 @@ public class ChatBot3
 	 * @param statement the user statement, assumed to contain "I" followed by "you"
 	 * @return the transformed statement
 	 */
-	private String transformIYouStatement(String statement)
+	private String transformDoYouHaveStatement(String statement)
 	{
 		//  Remove the final period, if there is one
 		statement = statement.trim();
