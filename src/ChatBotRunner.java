@@ -16,27 +16,45 @@ public class ChatBotRunner
 		ChatBot1 chatbot1 = new ChatBot1();
 		ChatBot2 chatbot2 = new ChatBot2();
 		ChatBot3 chatbot3 = new ChatBot3();
-		
+		String statement = "";
+		int whichChatBot;
 
 		Scanner in = new Scanner (System.in);
 		System.out.println("Welcome to WackDonalds, are you here for breakfast, lunch, or dinner?");
 		String statement = in.nextLine();
-		if (findKeyword(statement, "not very") >= 0)
+		if (findKeyword(statement, "breakfast") >= 0)
+		{
+			whichChatBot = 1;
+		}
+		else if(findKeyword(statement, "lunch") >= 0)
+		{
+			whichChatBot = 2;
+		}
+		else if(findKeyword(statement, "dinner") >= 0)
+		{
+			whichChatBot = 3;
+		}
 
 
 		while (!statement.equals("Bye"))
 		{
 			//Use Logic to control which chatbot is handling the conversation\
 			//This example has only chatbot1
-
-
-
-			chatbot1.chatLoop(statement);
-
-
-			statement = in.nextLine();
-
-
+			if(whichChatBot == 1)
+			{
+				chatbot1.chatLoop(statement);
+				statement = in.nextLine();
+			}
+			else if(whichChatBot == 2)
+			{
+				chatbot2.chatLoop(statement);
+				statement = in.nextLine();
+			}
+			else if(whichChatBot == 3)
+			{
+				chatbot3.chatLoop(statement);
+				statement = in.nextLine();
+			}
 		}
 	}
 
