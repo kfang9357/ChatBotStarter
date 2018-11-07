@@ -67,19 +67,19 @@ public class ChatBot3
 
 		else if (findKeyword(statement, "soda") >= 0)
 		{
-			response = "We have Coke, Sprite and Fanta. ";
-                	emotion--;
+			response = "We have Coke, Sprite and Fanta.";
+                	drinks++;
 		}
 		
 		else if (findKeyword(statement, "water") >= 0)
 		{
 			response = "Would you like that with ice?";
-			emotion++;
+			drinks++;
 		}
 		else if (findKeyword(statement, "alcohol") >= 0)
 		{
 			response = "We have red wine and white wine.";
-			emotion++;
+			drinks++;
 		}
 
 		// Response transforming I want to statement
@@ -150,7 +150,7 @@ public class ChatBot3
 	 * @param statement the user statement, assumed to contain "I" followed by "you"
 	 * @return the transformed statement
 	 */
-	private String transformDoYouHaveStatement(String statement)
+	private String StatementReturnBill(String statement)
 	{
 		//  Remove the final period, if there is one
 		statement = statement.trim();
@@ -162,7 +162,7 @@ public class ChatBot3
 					.length() - 1);
 		}
 		
-		int psnOfI = findKeyword (statement, "I", 0);
+		int psnOfI = findKeyword (statement, "", 0);
 		int psnOfYou = findKeyword (statement, "you", psnOfI);
 		
 		String restOfStatement = statement.substring(psnOfI + 1, psnOfYou).trim();
@@ -255,29 +255,40 @@ public class ChatBot3
 	 * Pick a default response to use if nothing else fits.
 	 * @return a non-committal string
 	 */
-	private String getRandomResponse ()
+	private String asking ()
 	{
-		Random r = new Random ();
-		if (emotion == 0)
+		if (asking == 1)
 		{	
-			return randomNeutralResponses [r.nextInt(randomNeutralResponses.length)];
+			return soupOfTheDay[(int)(Math.random()*7)];
 		}
-		if (emotion < 0)
+		if (asking == 2)
 		{	
-			return randomAngryResponses [r.nextInt(randomAngryResponses.length)];
-		}	
-		return randomHappyResponses [r.nextInt(randomHappyResponses.length)];
+			return  chefSpecial[(int)(Math.random()*6)];
+		}
+		if (asking ==3)
+        {
+            return dessertOfTheNight [(int)(Math.random()*5)];
+        }
 	}
 	
-	private String [] randomNeutralResponses = {"Interesting, tell me more",
-			"Hmmm.",
-			"Do you really think so?",
-			"You don't say.",
-			"It's all boolean to me.",
-			"So, would you like to go for a walk?",
-			"Could you say that again?"
+	private String [] soupOfTheDay = {"Clam Chowder",
+			"Tomato Soup",
+			"French Onion Soup",
+			"Chicken Noodle Soup",
+			"Lentil Soup",
+            "Cauliflower Soup:,"
 	};
-	private String [] randomAngryResponses = {"Bahumbug.", "Harumph", "The rage consumes me!"};
-	private String [] randomHappyResponses = {"H A P P Y, what's that spell?", "Today is a good day", "You make me feel like a brand new pair of shoes."};
-	
+	private String [] chefSpecial = {"Filet Mignon",
+            "Beef Wellington",
+            "Butter Chicken",
+            "Stuffed Pork Tenderloins",
+            "Grilled Salmon",
+
+	};
+	private String [] dessertOfTheNight = {"Chocolate Soufle",
+            "Fruit Tart",
+            "Macaroons",
+            "Tiramisu",
+    };
+
 }

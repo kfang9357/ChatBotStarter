@@ -10,9 +10,13 @@ import java.util.Scanner;
 public class ChatBot2
 {
 	//emotion can alter the way our bot responds. Emotion can become more negative or positive over time.
+    //variables to keep track of the order
 	int emotion = 0;
 	int items = 0;
-	int 
+	int drinks = 0;
+	int burgers = 0;
+	int hotdogs = 0;
+	int sandwhiches = 0:
 
 
 
@@ -44,7 +48,7 @@ public class ChatBot2
 	 */	
 	public String getGreeting()
 	{
-		return "Hi, what is up?";
+		return "Hi,thanks for choosing the lunch menu, How may I help you ? ";
 	}
 	
 	/**
