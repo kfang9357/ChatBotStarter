@@ -9,13 +9,13 @@ import java.util.Scanner;
  */
 public class ChatBot3
 {
-	//Keeps track of the number of items ordered and presents a bill at the end
+	/**Keeps track of the number of items ordered and presents a bill at the end
 	int items = 0;
 	int drinks = 0;
 	int dishes = 0;
 	int dessert = 0;
 	int asking = 0;
-
+**/
 
 
 	/**
@@ -67,7 +67,7 @@ public class ChatBot3
 
 		else if (findKeyword(statement, "soup of the day") >= 0)
 		{
-			return "The soupf of the day is "+ soupOfTheDay[(int)(Math.random()*7)]+".";
+			return "The soup of the day is "+ soupOfTheDay[(int)(Math.random()*7)]+".";
 
 		}
 		
@@ -116,6 +116,7 @@ public class ChatBot3
 		}
 		int psn = findKeyword (statement, "Do you have", 0);
 		String restOfStatement = statement.substring(psn + 12).trim();
+		//if restOfStatement is in any of the arrays, say yes, if not say no
 		return "Yes. We have " + restOfStatement + ".";
 	}
 
@@ -138,6 +139,7 @@ public class ChatBot3
 		}
 		int psn = findKeyword (statement, "Can I get a", 0);
 		String restOfStatement = statement.substring(psn+11).trim();
+		//go thru arrays to see if restOfStatement is there; return the statement below if they have; if not, return "sorry we dont have that at the moment"
 		return "I am adding" + restOfStatement + " to your order. What else would you like?";
 	}
 	
@@ -253,21 +255,15 @@ public class ChatBot3
 	 * Pick a default response to use if nothing else fits.
 	 * @return a non-committal string
 	 */
-	private String asking ()
+
+	/**private String [] getRandomResponses = {"Can I get you anything else?"
+
+	private String getRandomResponse()
 	{
-		if (asking == 1)
-		{	
-			return soupOfTheDay[(int)(Math.random()*7)];
-		}
-		if (asking == 2)
-		{	
-			return  chefSpecial[(int)(Math.random()*6)];
-		}
-		if (asking ==3)
-        {
-            return dessertOfTheNight [(int)(Math.random()*5)];
-        }
+		int ran = Math.random()*5;
+		return randomResponses[ran]
 	}
+     **/
 	
 	private String [] soupOfTheDay = {"Clam Chowder",
 			"Tomato Soup",
