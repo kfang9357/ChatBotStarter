@@ -12,9 +12,9 @@ public class ChatBot3
 	//Keeps track of the number of items ordered and presents a bill at the end
 	int items = 0;
 	int drinks = 0;
-	int appetizers = 0;
-	int entrees = 0;
+	int dishes = 0;
 	int dessert = 0;
+	int asking = 0;
 
 
 
@@ -46,7 +46,7 @@ public class ChatBot3
 	 */	
 	public String getGreeting()
 	{
-		return "Hi, welccome to Wackdonalds. I will be your server today. What kind of refreshment can I offer you?";
+		return "Hi, welcome to Wackdonalds. I will be your server today. Would you like to hear about our soup of the day, chef's special, or dessert of the night?";
 	}
 	
 	/**
@@ -65,25 +65,23 @@ public class ChatBot3
 			response = "Say something, please.";
 		}
 
-		else if (findKeyword(statement, "soda") >= 0)
+		else if (findKeyword(statement, "soup of the day") >= 0)
 		{
-			response = "We have Coke, Sprite and Fanta.";
-                	drinks++;
+			return "The soupf of the day is "+ soupOfTheDay[(int)(Math.random()*7)]+".";
+
 		}
 		
-		else if (findKeyword(statement, "water") >= 0)
+		else if (findKeyword(statement, "chef's special") >= 0)
 		{
-			response = "Would you like that with ice?";
-			drinks++;
+			return  "The chef's special of the night is " + chefSpecial[(int)(Math.random()*6)]+".";
 		}
-		else if (findKeyword(statement, "alcohol") >= 0)
+		else if (findKeyword(statement, "dessert of the night") >= 0)
 		{
-			response = "We have red wine and white wine.";
-			drinks++;
+			return "The dessert of the night is " + dessertOfTheNight [(int)(Math.random()*5)]+".";
 		}
 
 		// Response transforming I want to statement
-		else if (findKeyword(statement, "I would like to have ", 0) >= 0)
+		else if (findKeyword(statement, "I would like to have the", 0) >= 0)
 		{
 			response = transformCanIGetStatement(statement);
 		}
@@ -93,7 +91,7 @@ public class ChatBot3
 		}	
 		else
 		{
-			response = getRandomResponse();
+			response = getRandomResponse(); //can I get you anything else
 		}
 		
 		return response;
