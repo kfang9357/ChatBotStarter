@@ -245,7 +245,6 @@ public class ChatBot2
 	{
 		return findKeyword (statement, goal, 0);
 	}
-	
 
 
 	/**
