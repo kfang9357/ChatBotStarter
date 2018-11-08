@@ -15,8 +15,7 @@ public class ChatBot2
 	int items = 0;
 	int drinks = 0;
 	int burgers = 0;
-	int hotdogs = 0;
-	int sandwhiches = 0:
+	int salad = 0;
 
 
 
@@ -267,15 +266,34 @@ public class ChatBot2
 		return randomHappyResponses [r.nextInt(randomHappyResponses.length)];
 	}
 	
-	private String [] randomNeutralResponses = {"Interesting, tell me more",
-			"Hmmm.",
-			"Do you really think so?",
-			"You don't say.",
-			"It's all boolean to me.",
-			"So, would you like to go for a walk?",
-			"Could you say that again?"
+
+	private String [] burgerOfTheDay = {
+			"Hamburger",
+			"Cheeseburger",
+			"Bacon Burger",
+			"Bacon Cheeseburger",
 	};
-	private String [] randomAngryResponses = {"Bahumbug.", "Harumph", "The rage consumes me!"};
-	private String [] randomHappyResponses = {"H A P P Y, what's that spell?", "Today is a good day", "You make me feel like a brand new pair of shoes."};
-	
+	private String [] saladOfTheDay = {
+			"Grilled Chicken",
+			"Cripsy Chicken",
+			"Grilled Steak",
+			"Shrimp",
+			"Grilled Salmon",
+
+	};
+	private String [] dressingOfTheDay = {
+			"Italian",
+			"Ceaser",
+			"Ranch",
+			"Ginger",
+			"Vinaigrette",
+
+	};
+	private String [] drinkOfTheDay = {
+			"Milkshake",
+			"Soda Float",
+			"Fresh Juice",
+			"Holy Water",
+	};
+
 }
