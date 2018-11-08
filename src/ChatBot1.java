@@ -13,7 +13,7 @@ public class ChatBot1
 	int emotion = 0;
 	String[] responses = {"Well, that's good. What would you like to eat?", "Glad to hear it. What would you like to eat",
 			"Woah, better order quick then. What would you like to eat?"};
-	String[] breakfastMenu = {"Pancakes", "eggs", };
+	String[] breakfastMenu = {"pancakes", "eggs", "waffles", ""};
 	/**
 	 * Runs the conversation for this particular chatbot, should allow switching to other chatbots.
 	 * @param statement the statement typed by the user
@@ -77,7 +77,7 @@ public class ChatBot1
 			response = responses[2];
 			emotion--;
 		}
-		else if (findKeyword(statement, "goldman") >= 0)
+		else if (findKeyword(statement, "want ") >= 0)
 		{
 			response = "Go for the gold, man.";
 			emotion++;

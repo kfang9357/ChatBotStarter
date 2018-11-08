@@ -16,21 +16,20 @@ public class ChatBotRunner
 		ChatBot1 chatbot1 = new ChatBot1();
 		ChatBot2 chatbot2 = new ChatBot2();
 		ChatBot3 chatbot3 = new ChatBot3();
-		String statement = "";
-		int whichChatBot;
+		int whichChatBot = 0;
 
 		Scanner in = new Scanner (System.in);
 		System.out.println("Welcome to WackDonalds, are you here for breakfast, lunch, or dinner?");
 		String statement = in.nextLine();
-		if (findKeyword(statement, "breakfast") >= 0)
+		if (statement.indexOf("breakfast") >= 0)
 		{
 			whichChatBot = 1;
 		}
-		else if(findKeyword(statement, "lunch") >= 0)
+		else if(statement.indexOf("lunch") >= 0)
 		{
 			whichChatBot = 2;
 		}
-		else if(findKeyword(statement, "dinner") >= 0)
+		else if(statement.indexOf("dinner") >= 0)
 		{
 			whichChatBot = 3;
 		}
