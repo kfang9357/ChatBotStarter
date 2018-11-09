@@ -47,7 +47,7 @@ public class ChatBot2
 	 */	
 	public String getGreeting()
 	{
-		return "Hi,thanks for choosing the lunch menu, How may I help you ? ";
+		return "Hi, welcome to WcDonalds. Thanks for choosing the lunch menu, how may I help you ? ";
 	}
 	
 	/**

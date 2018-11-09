@@ -91,7 +91,6 @@ public class ChatBot3
 		}
 		int psn = findKeyword (statement, "Do you have", 0);
 		String restOfStatement = statement.substring(psn + 12).trim();
-		if
 		return "I am adding " + restOfStatement + " to your order now.";
 	}
 
