@@ -3,7 +3,7 @@ import java.util.Scanner;
 /**
  * A program to carry on conversations with a human user.
  * This version:
- * @author Brooklyn Tech CS Department
+ * @author Kelly Fang
  * @version September 2018
  */
 public class ChatBot3
@@ -75,7 +75,7 @@ public class ChatBot3
 			response = getRandomResponses();
 		}
 		
-		return response = getBill();
+		return response = getBill(int dessertCount, int soupCount, int dishesCount);
 	}
 
 	private String transformIWantTheStatement(String statement)
@@ -125,7 +125,7 @@ public class ChatBot3
 		int psn = findKeyword (statement, "Do you have", 0);
 		
 		String restOfStatement = statement.substring(psn + 12).trim();
-		String check = findOrder();
+		String check = findOrder(); //method commented out at the bottom
 		return "We " + check + " have " + restOfStatement + " on our menu tonight.";
 	}
 	
@@ -242,19 +242,20 @@ public class ChatBot3
         return "You've ordered: " + soupCount + " soups, " + dishesCount + " dishes, and " + dessertCount + " desserts. Your total is " + total + " dollars.";
     }
 
-    private String getCompliment();
-    {
-        int r = (int)(Math.random()*5);
-        return compliment[r];
-    }
+	private String getCompliment();
+	{
+		int r = (int)(Math.random()*5);
+		return compliment[r];
+	}
 
-    private String[] compliment = {"very good.",
-    "delicious.",
-    "excellent.",
-    "well made.",
-    };
+	private String[] compliment = {"very good.",
+			"delicious.",
+			"excellent.",
+			"well made.",
+	};
 
-    private String findOrder()
+
+  /**  private String findOrder() I wanted to iterate the rest of the statement thru each array to see if the item was on the menu so i could return do or dont have
     {
         for (int o : dessertOfTheNight){
             if (dessertOfTheNight[o].equals(restOfStatement)) {
@@ -275,5 +276,5 @@ public class ChatBot3
 
     }
         return false;
-    }
+    }**/
 }
