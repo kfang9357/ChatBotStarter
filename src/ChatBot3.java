@@ -92,11 +92,11 @@ public class ChatBot3
 		int psn = findKeyword (statement, "Do you have", 0);
 		String restOfStatement = statement.substring(psn + 12).trim();
 		if
-		return "Yes. We have " + restOfStatement + ".";
+		return "I am adding " + restOfStatement + " to your order now.";
 	}
 
 
-	private String transformHowIsThe(String statement)
+	private String transformHowIsThe(String statement, String[] soupOfTheDay, String[] chefSpecial, String[] dessertOfTheNight)
 	{
 		statement = statement.trim();
 		String lastChar = statement.substring(statement
@@ -106,21 +106,12 @@ public class ChatBot3
 			statement = statement.substring(0, statement
 					.length() - 1);
 		}
-		int psn = findKeyword (statement, "I want the", 0);
+		int psn = findKeyword (statement, "How is the", 0);
 		String restOfStatement = statement.substring(psn+11).trim();
-		//go thru arrays to see if restOfStatement is there; return the statement below if they have; if not, return "sorry we dont have that at the moment"
-
-        for (int o : array){
-            if (o == check) {
-                return true;
-            }
-        }
-        return false;
-    }
-		return "I am adding" + restOfStatement + " to your order. What else would you like?";
+		return "The" + restOfStatement + " is " + getCompliment();
 	}
 
-	private String StatementReturnBill(String statement)
+	private String StatementDoYouHave(String statement)
 	{
 		//  Remove the final period, if there is one
 		statement = statement.trim();
@@ -132,11 +123,11 @@ public class ChatBot3
 					.length() - 1);
 		}
 		
-		int psnOfI = findKeyword (statement, "", 0);
-		int psnOfYou = findKeyword (statement, "you", psnOfI);
+		int psn = findKeyword (statement, "Do you have", 0);
 		
-		String restOfStatement = statement.substring(psnOfI + 1, psnOfYou).trim();
-		return "Why do you " + restOfStatement + " me?";
+		String restOfStatement = statement.substring(psn + 12).trim();
+		String check = findOrder();
+		return "We " + check + " have " + restOfStatement + " on our menu tonight.";
 	}
 	
 
@@ -238,9 +229,10 @@ public class ChatBot3
 	private String getRandomResponses()
     {
         int r = (int)Math.random()*4;
-        return dessertOfTheNight[r];
+        return randomResponses[r];
     }
-	private String [] randomResponses = {"Can I get you anything else?",
+
+    private String [] randomResponses = {"Can I get you anything else?",
             "Is there anything else you want?",
             "How else can I help you?",
     };
@@ -251,4 +243,38 @@ public class ChatBot3
         return "You've ordered: " + soupCount + " soups, " + dishesCount + " dishes, and " + dessertCount + " desserts. Your total is " + total + " dollars.";
     }
 
+    private String getCompliment();
+    {
+        int r = (int)(Math.random()*5);
+        return compliment[r];
+    }
+
+    private String[] compliment = {"very good.",
+    "delicious.",
+    "excellent.",
+    "well made.",
+    };
+
+    private String findOrder()
+    {
+        for (int o : dessertOfTheNight){
+            if (dessertOfTheNight[o].equals(restOfStatement)) {
+                return "do";
+            }
+            else if (for (int o : chefSpecial){
+            if (!chefSpecial[o].equals(restOfStatement)) {
+                return "do";
+            }
+            else for (int o : soupOfTheDay){
+            if (soupOfTheDay[o].equals(restOfStatement)){
+                return "do";
+
+                else return "don't"
+            }
+        }
+    }
+
+    }
+        return false;
+    }
 }
