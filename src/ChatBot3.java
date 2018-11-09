@@ -8,19 +8,11 @@ import java.util.Scanner;
  */
 public class ChatBot3
 {
-	/**Keeps track of the number of items ordered and presents a bill at the end
-	int items = 0;
-	int drinks = 0;
-	int dishes = 0;
-	int dessert = 0;
-	int asking = 0;
-**/
 
+    int soupCount = 0;
+    int dishesCount = 0;
+    int dessertCount = 0;
 
-	/**
-	 * Runs the conversation for this particular chatbot, should allow switching to other chatbots.
-	 * @param statement the statement typed by the user
-	 */
 	public void chatLoop(String statement)
 	{
 		Scanner in = new Scanner (System.in);
@@ -99,7 +91,7 @@ public class ChatBot3
 		}
 		int psn = findKeyword (statement, "Do you have", 0);
 		String restOfStatement = statement.substring(psn + 12).trim();
-		//if restOfStatement is in any of the arrays, say yes, if not say no
+		if
 		return "Yes. We have " + restOfStatement + ".";
 	}
 
@@ -117,6 +109,14 @@ public class ChatBot3
 		int psn = findKeyword (statement, "I want the", 0);
 		String restOfStatement = statement.substring(psn+11).trim();
 		//go thru arrays to see if restOfStatement is there; return the statement below if they have; if not, return "sorry we dont have that at the moment"
+
+        for (int o : array){
+            if (o == check) {
+                return true;
+            }
+        }
+        return false;
+    }
 		return "I am adding" + restOfStatement + " to your order. What else would you like?";
 	}
 
@@ -140,7 +140,7 @@ public class ChatBot3
 	}
 	
 
-	private String
+	//private String
 
 	private int findKeyword(String statement, String goal,
 			int startPos)
@@ -244,5 +244,11 @@ public class ChatBot3
             "Is there anything else you want?",
             "How else can I help you?",
     };
+
+	private String getBill(int dessertCount, int soupCount, int dishesCount)
+    {
+        int total = (dessertCount*8) + (dishesCount*12) + (soupCount*9);
+        return "You've ordered: " + soupCount + " soups, " + dishesCount + " dishes, and " + dessertCount + " desserts. Your total is " + total + " dollars.";
+    }
 
 }
