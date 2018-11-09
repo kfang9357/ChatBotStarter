@@ -11,18 +11,49 @@ public class ChatBot1
 {
 	//emotion can alter the way our bot responds. Emotion can become more negative or positive over time.
 	int emotion = 0;
-	String[] responses = {"Well, that's good. What would you like to eat?", "Glad to hear it. What would you like to eat",
+	String[] responses = {
+			"Okay, maybe come back later.",
+			"That's fine, have something light to eat.",
 			"Woah, better order quick then. What would you like to eat?"};
-	String[] breakfastMenu = {"pancakes", "eggs", "waffles", ""};
+	String[] mainCourses = {
+			"pancakes",
+			"eggs",
+			"waffles"
+	};
+	String[] sides = {
+			"sausage",
+			"bacon",
+			"homefries",
+			"fries"
+	};
+	String[] drinks = {
+			"orange juice",
+			"water",
+			"coffee",
+			"apple juice"};
+	//I want to make a method to check if an input is in a list and will then add the item to an order list.
 	/**
 	 * Runs the conversation for this particular chatbot, should allow switching to other chatbots.
 	 * @param statement the statement typed by the user
 	 */
+
 	public void chatLoop(String statement)
 	{
 		Scanner in = new Scanner (System.in);
 		System.out.println (getGreeting());
-
+		String[] reciept = {};
+		//supposed to add an item to a food list.
+        public static String isInArray(int arrayLength, String arrayName)
+        {
+            for(int x=0; x < arrayLength - 1; x++)
+            {
+                if (findKeyword(statement, arrayName[x]) >= 0)
+                {
+                    int startPos = statement.indexOf(arrayName[x]);
+                    return statement.substring(startPos, startPos + arrayName[x].length());
+                }
+            }
+        }
 
 		while (!statement.equals("Bye"))
 		{
@@ -54,34 +85,24 @@ public class ChatBot1
 	 */
 	public String getResponse(String statement)
 	{
-		String response = "";
-		
-		if (statement.length() == 0)
-		{
-			response = "Say something, please.";
+	    String response = "";
+		boolean greeted = false;
+		if(!greeted) {
+			if (statement.length() == 0) {
+				response = "Say something, please.";
+			} else if (findKeyword(statement, "not very") >= 0) {
+				response = responses[0];
+				greeted = true;
+			} else if (findKeyword(statement, "not that") >= 0) {
+				response = responses[1];
+				greeted = true;
+			} else if (findKeyword(statement, "very") >= 0) {
+				response = responses[2];
+				greeted = true;
+			}
 		}
 
-		else if (findKeyword(statement, "not very") >= 0)
-		{
-			response = responses[0];
-                	emotion++;
-		}
-		
-		else if (findKeyword(statement, "not that") >= 0)
-		{
-			response = responses[1];
-			emotion++;
-		}
-		else if (findKeyword(statement, "very") >= 0)
-		{
-			response = responses[2];
-			emotion--;
-		}
-		else if (findKeyword(statement, "want ") >= 0)
-		{
-			response = "Go for the gold, man.";
-			emotion++;
-		}
+
 
 		// Response transforming I want to statement
 		else if (findKeyword(statement, "I want to", 0) >= 0)
