@@ -39,22 +39,12 @@ public class ChatBot3
 		}
 
 	}
-	/**
-	 * Get a default greeting 	
-	 * @return a greeting
-	 */	
+
 	public String getGreeting()
-	{
-		return "Hi, welcome to Wackdonalds. I will be your server today. Would you like to hear about our soup of the day, chef's special, or dessert of the night?";
-	}
-	
-	/**
-	 * Gives a response to a user statement
-	 * 
-	 * @param statement
-	 *            the user statement
-	 * @return a response based on the rules given
-	 */
+    {
+        return "Would you like to learn about the soup of the day, chef's special, or dessert of the night?";
+    }
+
 	public String getResponse(String statement)
 	{
 		String response = "";
@@ -64,45 +54,39 @@ public class ChatBot3
 			response = "Say something, please.";
 		}
 
-		else if (findKeyword(statement, "soup of the day") >= 0)
+		else if (findKeyword(statement, "soup") >= 0)
 		{
-			return "The soup of the day is "+ soupOfTheDay[(int)(Math.random()*7)]+".";
+			response = getSoupOfTheDay();
 
 		}
 		
-		else if (findKeyword(statement, "chef's special") >= 0)
+		else if (findKeyword(statement, "chef's") >= 0)
 		{
-			return  "The chef's special of the night is " + chefSpecial[(int)(Math.random()*6)]+".";
+			response =  getChefsSpecial();
 		}
-		else if (findKeyword(statement, "dessert of the night") >= 0)
+		else if (findKeyword(statement, "dessert") >= 0)
 		{
-			return "The dessert of the night is " + dessertOfTheNight [(int)(Math.random()*5)]+".";
+			response =  getDessertOfTheNight();
 		}
 
 		// Response transforming I want to statement
-		else if (findKeyword(statement, "I would like to have the", 0) >= 0)
+		else if (findKeyword(statement, "I want the", 0) >= 0)
 		{
-			response = transformCanIGetStatement(statement);
+			response = transformIWantTheStatement(statement);
 		}
 		else if (findKeyword(statement, "Do you have ",0) >= 0)
 		{
-			response = transformDoYouHaveStatement(statement);
+			response = transformHowIsThe(statement);
 		}	
 		else
 		{
-			response = getRandomResponse(); //can I get you anything else
+			response = getRandomResponses();
 		}
 		
-		return response;
+		return response = getBill();
 	}
-	
-	/**
-	 * Take a statement with "I want to <something>." and transform it into 
-	 * "Why do you want to <something>?"
-	 * @param statement the user statement, assumed to contain "I want to"
-	 * @return the transformed statement
-	 */
-	private String transformDoYouHaveStatement(String statement)
+
+	private String transformIWantTheStatement(String statement)
 	{
 		//  Remove the final period, if there is one
 		statement = statement.trim();
@@ -119,14 +103,8 @@ public class ChatBot3
 		return "Yes. We have " + restOfStatement + ".";
 	}
 
-	
-	/**
-	 * Take a statement with "I want <something>." and transform it into 
-	 * "Would you really be happy if you had <something>?"
-	 * @param statement the user statement, assumed to contain "I want"
-	 * @return the transformed statement
-	 */
-	private String transformCanIGetStatement(String statement)
+
+	private String transformHowIsThe(String statement)
 	{
 		statement = statement.trim();
 		String lastChar = statement.substring(statement
@@ -136,19 +114,12 @@ public class ChatBot3
 			statement = statement.substring(0, statement
 					.length() - 1);
 		}
-		int psn = findKeyword (statement, "Can I get a", 0);
+		int psn = findKeyword (statement, "I want the", 0);
 		String restOfStatement = statement.substring(psn+11).trim();
 		//go thru arrays to see if restOfStatement is there; return the statement below if they have; if not, return "sorry we dont have that at the moment"
 		return "I am adding" + restOfStatement + " to your order. What else would you like?";
 	}
-	
-	
-	/**
-	 * Take a statement with "I <something> you" and transform it into 
-	 * "Why do you <something> me?"
-	 * @param statement the user statement, assumed to contain "I" followed by "you"
-	 * @return the transformed statement
-	 */
+
 	private String StatementReturnBill(String statement)
 	{
 		//  Remove the final period, if there is one
@@ -169,24 +140,8 @@ public class ChatBot3
 	}
 	
 
-	
-	
-	/**
-	 * Search for one word in phrase. The search is not case
-	 * sensitive. This method will check that the given goal
-	 * is not a substring of a longer string (so, for
-	 * example, "I know" does not contain "no").
-	 *
-	 * @param statement
-	 *            the string to search
-	 * @param goal
-	 *            the string to search for
-	 * @param startPos
-	 *            the character of the string to begin the
-	 *            search at
-	 * @return the index of the first occurrence of goal in
-	 *         statement or -1 if it's not found
-	 */
+	private String
+
 	private int findKeyword(String statement, String goal,
 			int startPos)
 	{
@@ -234,36 +189,19 @@ public class ChatBot3
 
 		return -1;
 	}
-	
-	/**
-	 * Search for one word in phrase.  The search is not case sensitive.
-	 * This method will check that the given goal is not a substring of a longer string
-	 * (so, for example, "I know" does not contain "no").  The search begins at the beginning of the string.  
-	 * @param statement the string to search
-	 * @param goal the string to search for
-	 * @return the index of the first occurrence of goal in statement or -1 if it's not found
-	 */
+
 	private int findKeyword(String statement, String goal)
 	{
 		return findKeyword (statement, goal, 0);
 	}
-	
 
 
-	/**
-	 * Pick a default response to use if nothing else fits.
-	 * @return a non-committal string
-	 */
+	private String getSoupOfTheDay()
+    {
+        int r = (int)Math.random()*8;
+        return "The soup of the day is " + soupOfTheDay[r] + " .";
+    }
 
-	/**private String [] getRandomResponses = {"Can I get you anything else?"
-
-	private String getRandomResponse()
-	{
-		int ran = Math.random()*5;
-		return randomResponses[ran]
-	}
-     **/
-	
 	private String [] soupOfTheDay = {"Clam Chowder",
 			"Tomato Soup",
 			"French Onion Soup",
@@ -271,17 +209,40 @@ public class ChatBot3
 			"Lentil Soup",
             "Cauliflower Soup:,"
 	};
+
+	private String getChefsSpecial()
+    {
+        int r =(int)Math.random()*6;
+        return "The chef's special is " + chefSpecial[r] + " .";
+    }
+
 	private String [] chefSpecial = {"Filet Mignon",
             "Beef Wellington",
             "Butter Chicken",
             "Stuffed Pork Tenderloins",
             "Grilled Salmon",
-
 	};
+
+	private String getDessertOfTheNight()
+    {
+        int r = (int)Math.random()*5;
+        return "The dessert of the night is " + dessertOfTheNight[r] +" .";
+    }
+
 	private String [] dessertOfTheNight = {"Chocolate Soufle",
             "Fruit Tart",
             "Macaroons",
             "Tiramisu",
+    };
+
+	private String getRandomResponses()
+    {
+        int r = (int)Math.random()*4;
+        return dessertOfTheNight[r];
+    }
+	private String [] randomResponses = {"Can I get you anything else?",
+            "Is there anything else you want?",
+            "How else can I help you?",
     };
 
 }
