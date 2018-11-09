@@ -2,6 +2,7 @@ import java.util.Random;
 import java.util.Scanner;
 //This is Jackson's bot
 
+
 public class ChatBot1 {
 	//emotion can alter the way our bot responds. Emotion can become more negative or positive over time.
 	int emotion = 0;
