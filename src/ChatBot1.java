@@ -1,59 +1,20 @@
 import java.util.Random;
 import java.util.Scanner;
 //This is Jackson's bot
-/**
- * A program to carry on conversations with a human user.
- * This version:
- * @author Brooklyn Tech CS Department
- * @version September 2018
- */
-public class ChatBot1
-{
+
+public class ChatBot1 {
 	//emotion can alter the way our bot responds. Emotion can become more negative or positive over time.
 	int emotion = 0;
 	String[] responses = {
 			"Okay, maybe come back later.",
 			"That's fine, have something light to eat.",
-			"Woah, better order quick then. What would you like to eat?"};
-	String[] mainCourses = {
-			"pancakes",
-			"eggs",
-			"waffles"
+			"Woah, better order quick then. What would you like to eat?"
 	};
-	String[] sides = {
-			"sausage",
-			"bacon",
-			"homefries",
-			"fries"
-	};
-	String[] drinks = {
-			"orange juice",
-			"water",
-			"coffee",
-			"apple juice"};
-	//I want to make a method to check if an input is in a list and will then add the item to an order list.
-	/**
-	 * Runs the conversation for this particular chatbot, should allow switching to other chatbots.
-	 * @param statement the statement typed by the user
-	 */
-
 	public void chatLoop(String statement)
 	{
 		Scanner in = new Scanner (System.in);
 		System.out.println (getGreeting());
-		String[] reciept = {};
-		//supposed to add an item to a food list.
-        public static String isInArray(int arrayLength, String arrayName)
-        {
-            for(int x=0; x < arrayLength - 1; x++)
-            {
-                if (findKeyword(statement, arrayName[x]) >= 0)
-                {
-                    int startPos = statement.indexOf(arrayName[x]);
-                    return statement.substring(startPos, startPos + arrayName[x].length());
-                }
-            }
-        }
+
 
 		while (!statement.equals("Bye"))
 		{
@@ -75,18 +36,11 @@ public class ChatBot1
 	{
 		return "Breakfast time! How hangry are you?";
 	}
-
-	/**
-	 * Gives a response to a user statement
-	 * 
-	 * @param statement
-	 *            the user statement
-	 * @return a response based on the rules given
-	 */
+	boolean greeted = false;
 	public String getResponse(String statement)
 	{
 	    String response = "";
-		boolean greeted = false;
+		String receipt = "";
 		if(!greeted) {
 			if (statement.length() == 0) {
 				response = "Say something, please.";
@@ -100,6 +54,54 @@ public class ChatBot1
 				response = responses[2];
 				greeted = true;
 			}
+		}
+		if(greeted && receipt.length() == 0)
+		{
+			String header = "Sure thing, I've added ";
+			String footer = " to your receipt";
+			if (findKeyword(statement, "eggs") >= 0)
+			{
+				response = header + "eggs" + footer;
+				receipt = receipt + "eggs with ";
+			}
+			else if (findKeyword(statement, "pancakes") >= 0)
+			{
+				response = header + "pancakes" + footer;
+				receipt = receipt + "pancakes with ";
+			}
+			else if (findKeyword(statement, "waffles ") >= 0)
+			{
+				response = header + "waffles" + footer;
+				receipt = receipt + "waffles with ";
+			}
+			else
+			{
+				response = "sorry, but that is not a main course on our menu.";
+			}
+			if (receipt.length() > 0)
+			{
+				response = "would you like a side with that?";
+			}
+			if (findKeyword(statement, "bacon") >= 0)
+			{
+				response = "It's been added.";
+				receipt = receipt + ", bacon";
+			}
+			else if (findKeyword(statement, ", sausage") >= 0)
+			{
+				response = "It's been added.";
+				receipt = receipt + "sausage";
+			}
+			if (receipt.length() > 1)
+			{
+				response = "Would you like something to drink with that?";
+			}
+			if (findKeyword(statement, "orange juice") >= 0)
+			{
+				response = "orange juice has been added to your reciept";
+				receipt = receipt + " orange juice";
+			}
+			else if (findKeyword(statement, "water") >= 0);
 		}
 
 
