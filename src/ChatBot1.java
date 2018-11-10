@@ -4,9 +4,7 @@ import java.util.Scanner;
 
 
 public class ChatBot1 {
-	//emotion can alter the way our bot responds. Emotion can become more negative or positive over time.
-	int emotion = 0;
-	String[] responses = {
+	String[] responses = new String[]{
 			"Okay, maybe come back later.",
 			"That's fine, have something light to eat.",
 			"Woah, better order quick then. What would you like to eat?"
@@ -22,7 +20,7 @@ public class ChatBot1 {
 
 
 			statement = in.nextLine();
-			//getResponse handles the user reply
+			//getResponse handles the computer's reply
 		System.out.println(getResponse(statement));
 
 
@@ -40,8 +38,9 @@ public class ChatBot1 {
 	boolean greeted = false;
 	public String getResponse(String statement)
 	{
-	    String response = "";
-		String receipt = "";
+	    String response;
+		String[] receipt = new String[5];
+		int receiptIterator = 0;
 		if(!greeted) {
 			if (statement.length() == 0) {
 				response = "Say something, please.";
@@ -56,51 +55,56 @@ public class ChatBot1 {
 				greeted = true;
 			}
 		}
-		if(greeted && receipt.length() == 0)
-		{
+		if(!receipt[0].equals(""))		{
 			String header = "Sure thing, I've added ";
 			String footer = " to your receipt";
 			if (findKeyword(statement, "eggs") >= 0)
 			{
 				response = header + "eggs" + footer;
-				receipt = receipt + "eggs with ";
+				receipt[receiptIterator] = "eggs";
+				receiptIterator++;
 			}
 			else if (findKeyword(statement, "pancakes") >= 0)
 			{
 				response = header + "pancakes" + footer;
-				receipt = receipt + "pancakes with ";
+				receipt[receiptIterator] = "pancakes";
+				receiptIterator++;
 			}
 			else if (findKeyword(statement, "waffles ") >= 0)
 			{
 				response = header + "waffles" + footer;
-				receipt = receipt + "waffles with ";
+				receipt[receiptIterator] = "waffles";
+				receiptIterator++;
 			}
 			else
 			{
 				response = "sorry, but that is not a main course on our menu.";
 			}
-			if (receipt.length() > 0)
+			if (!receipt[0].equals(""))
 			{
 				response = "would you like a side with that?";
 			}
 			if (findKeyword(statement, "bacon") >= 0)
 			{
 				response = "It's been added.";
-				receipt = receipt + ", bacon";
+				receipt[receiptIterator] = "bacon";
+				receiptIterator++;
 			}
 			else if (findKeyword(statement, ", sausage") >= 0)
 			{
 				response = "It's been added.";
-				receipt = receipt + "sausage";
+				receipt[receiptIterator] = "sausage";
+				receiptIterator++;
 			}
-			if (receipt.length() > 1)
+			if (!receipt[1].equals(""))
 			{
 				response = "Would you like something to drink with that?";
 			}
 			if (findKeyword(statement, "orange juice") >= 0)
 			{
 				response = "orange juice has been added to your reciept";
-				receipt = receipt + " orange juice";
+				receipt[receiptIterator] = "orange juice";
+				receiptIterator++;
 			}
 			else if (findKeyword(statement, "water") >= 0);
 		}
@@ -283,18 +287,8 @@ public class ChatBot1 {
 	 */
 	private String getRandomResponse ()
 	{
-		Random r = new Random ();
-		if (emotion == 0)
-		{	
-			return randomNeutralResponses [r.nextInt(randomNeutralResponses.length)];
-		}
-		if (emotion < 0)
-		{	
-			return randomAngryResponses [r.nextInt(randomAngryResponses.length)];
-		}	
-		return randomHappyResponses [r.nextInt(randomHappyResponses.length)];
+		return randomNeutralResponses[(int)(Math.random() * 7)];
 	}
-	
 	private String [] randomNeutralResponses = {"Interesting, tell me more",
 			"Hmmm.",
 			"Do you really think so?",
