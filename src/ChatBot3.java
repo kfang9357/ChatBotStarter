@@ -112,7 +112,7 @@ public class ChatBot3
 		return "The" + restOfStatement + " is " + getCompliment();
 	}
 
-	private String transformCanIGet(String statement)
+	private String transformCanIGetk(String statement)
 	{
 		//  Remove the final period, if there is one
 		statement = statement.trim();
