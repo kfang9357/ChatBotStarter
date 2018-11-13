@@ -1,6 +1,7 @@
 import java.util.Scanner;
 import java.math.BigDecimal;
 public class ChatBot1 {
+	//All of the booleans declared here will tell the chatbot whether a certain part of the conversation has happened.
 	boolean greeted = false;
 	String[] receipt = new String[5];
 	int receiptIterator = 0;
@@ -48,13 +49,16 @@ public class ChatBot1 {
 
 		}
 	}
-
+	//This is the primary place where my code runs.
 	public String getResponse(String statement) {
 		while(!mainCourseAdded)
 		{
+			/*notice there are a lot of arrays being accessed here. This is because my code needs to iterate through the
+			receipt all the while iterating through the various arrays that make up the menu.*/
 			if (findKeyword(statement, mainCourses[menuIterator], 0) >= 0) {
 				receipt[receiptIterator] = mainCourses[menuIterator];
 				receiptIterator++;
+				/*here the boolean mainCourseAdded is set to true. this means the while loop will no longer iterate*/
 				mainCourseAdded = true;
 				response = "I've added " + mainCourses[menuIterator] +
 						" to your order. What would you like on the side?";
