@@ -4,18 +4,15 @@ import java.util.Scanner;
 /**
  * A program to carry on conversations with a human user.
  * This version:
- * @author Brooklyn Tech CS Department
+ * @author Andy Pun
  * @version September 2018
  */
 public class ChatBot2
 {
-	//emotion can alter the way our bot responds. Emotion can become more negative or positive over time.
-    //variables to keep track of the order
-	int emotion = 0;
-	int items = 0;
-	int drinks = 0;
-	int burgers = 0;
-	int salad = 0;
+	//variables to keep track of the order
+	int drinkNum = 0;
+	int burgerNum = 0;
+	int saladNum = 0;
 
 
 
@@ -47,7 +44,7 @@ public class ChatBot2
 	 */	
 	public String getGreeting()
 	{
-		return "Hi,thanks for choosing the lunch menu, How may I help you ? ";
+		return "Hi, welcome to WcDonalds. Would you like to learn about the burger of the day, salad of the day, or drink of the day ? ";
 	}
 	
 	/**
@@ -66,125 +63,74 @@ public class ChatBot2
 			response = "Say something, please.";
 		}
 
-		else if (findKeyword(statement, "no") >= 0)
+		else if (findKeyword(statement, "burger") >= 0)
 		{
-			response = "Why so negative?";
-                	emotion--;
+			response = getBurgerOfTheDay();
+
 		}
 		
-		else if (findKeyword(statement, "levin") >= 0)
+		else if (findKeyword(statement, "salad") >= 0)
 		{
-			response = "More like LevinTheDream amiright?";
-			emotion++;
+			response = getDressingOfTheDay() + getSaladOfTheDay();
+
+		}
+		else if (findKeyword(statement, "drink") >= 0)
+		{
+			response = getDrinkOfTheDay();
 		}
 
 		// Response transforming I want to statement
-		else if (findKeyword(statement, "I want to", 0) >= 0)
+		else if (findKeyword(statement, "I want the", 0) >= 0)
 		{
-			response = transformIWantToStatement(statement);
+			response = transformIWantTheStatement(statement);
 		}
-		else if (findKeyword(statement, "I want",0) >= 0)
+		else if (findKeyword(statement, "Do you have ",0) >= 0)
 		{
-			response = transformIWantStatement(statement);
+			response = transformHowIsThe(statement);
 		}	
 		else
 		{
 			response = getRandomResponse();
 		}
 		
-		return response;
-	}
-	
-	/**
-	 * Take a statement with "I want to <something>." and transform it into 
-	 * "Why do you want to <something>?"
-	 * @param statement the user statement, assumed to contain "I want to"
-	 * @return the transformed statement
-	 */
-	private String transformIWantToStatement(String statement)
-	{
-		//  Remove the final period, if there is one
-		statement = statement.trim();
-		String lastChar = statement.substring(statement
-				.length() - 1);
-		if (lastChar.equals("."))
-		{
-			statement = statement.substring(0, statement
-					.length() - 1);
-		}
-		int psn = findKeyword (statement, "I want to", 0);
-		String restOfStatement = statement.substring(psn + 9).trim();
-		return "Why do you want to " + restOfStatement + "?";
-	}
-
-	
-	/**
-	 * Take a statement with "I want <something>." and transform it into 
-	 * "Would you really be happy if you had <something>?"
-	 * @param statement the user statement, assumed to contain "I want"
-	 * @return the transformed statement
-	 */
-	private String transformIWantStatement(String statement)
-	{
-		//  Remove the final period, if there is one
-		statement = statement.trim();
-		String lastChar = statement.substring(statement
-				.length() - 1);
-		if (lastChar.equals("."))
-		{
-			statement = statement.substring(0, statement
-					.length() - 1);
-		}
-		int psn = findKeyword (statement, "I want", 0);
-		String restOfStatement = statement.substring(psn + 6).trim();
-		return "Would you really be happy if you had " + restOfStatement + "?";
-	}
-	
-	
-	/**
-	 * Take a statement with "I <something> you" and transform it into 
-	 * "Why do you <something> me?"
-	 * @param statement the user statement, assumed to contain "I" followed by "you"
-	 * @return the transformed statement
-	 */
-	private String transformIYouStatement(String statement)
-	{
-		//  Remove the final period, if there is one
-		statement = statement.trim();
-		String lastChar = statement.substring(statement
-				.length() - 1);
-		if (lastChar.equals("."))
-		{
-			statement = statement.substring(0, statement
-					.length() - 1);
-		}
-		
-		int psnOfI = findKeyword (statement, "I", 0);
-		int psnOfYou = findKeyword (statement, "you", psnOfI);
-		
-		String restOfStatement = statement.substring(psnOfI + 1, psnOfYou).trim();
-		return "Why do you " + restOfStatement + " me?";
+		return response = getBill(int burgerNum, int saladaNum, int drinkNum);
 	}
 	
 
-	
-	
-	/**
-	 * Search for one word in phrase. The search is not case
-	 * sensitive. This method will check that the given goal
-	 * is not a substring of a longer string (so, for
-	 * example, "I know" does not contain "no").
-	 *
-	 * @param statement
-	 *            the string to search
-	 * @param goal
-	 *            the string to search for
-	 * @param startPos
-	 *            the character of the string to begin the
-	 *            search at
-	 * @return the index of the first occurrence of goal in
-	 *         statement or -1 if it's not found
-	 */
+	private String transformIWantTheStatement(String statement)
+	{
+		//  Remove the final period, if there is one
+		statement = statement.trim();
+		String lastChar = statement.substring(statement
+				.length() - 1);
+		if (lastChar.equals("."))
+		{
+			statement = statement.substring(0, statement
+					.length() - 1);
+		}
+		int psn = findKeyword (statement, "Do you have", 0);
+		String restOfStatement = statement.substring(psn + 12).trim();
+		return "I am adding " + restOfStatement + " to your order now.";
+	}
+
+
+	private String transformHowIsThe(String statement, String[] soupOfTheDay, String[] chefSpecial, String[] dessertOfTheNight)
+	{
+		statement = statement.trim();
+		String lastChar = statement.substring(statement
+				.length() - 1);
+		if (lastChar.equals("."))
+		{
+			statement = statement.substring(0, statement
+					.length() - 1);
+		}
+		int psn = findKeyword (statement, "How is the", 0);
+		String restOfStatement = statement.substring(psn+11).trim();
+		return "The" + restOfStatement + " is " + getCompliment();
+	}
+
+
+
 	private int findKeyword(String statement, String goal,
 			int startPos)
 	{
@@ -253,18 +199,20 @@ public class ChatBot2
 	 */
 	private String getRandomResponse ()
 	{
-		Random r = new Random ();
-		if (emotion == 0)
-		{	
-			return randomNeutralResponses [r.nextInt(randomNeutralResponses.length)];
-		}
-		if (emotion < 0)
-		{	
-			return randomAngryResponses [r.nextInt(randomAngryResponses.length)];
-		}	
-		return randomHappyResponses [r.nextInt(randomHappyResponses.length)];
+		int r = (int)Math.random()*4;
+		return randomResponses[r];
 	}
-	
+
+	private String [] randomResponses = {"Can I get you anything else?",
+			"Is there anything else you want?",
+			"How else can I help you?",
+	};
+
+	private String getBurgerOfTheDay()
+	{
+		int r = (int)Math.random()*8;
+		return "The burger of the day is " + burgerOfTheDay[r] + " .";
+	}
 
 	private String [] burgerOfTheDay = {
 			"Hamburger",
@@ -272,27 +220,63 @@ public class ChatBot2
 			"Bacon Burger",
 			"Bacon Cheeseburger",
 	};
+
+	private String getSaladOfTheDay()
+	{
+		int r = (int)Math.random()*8;
+		return "The salad of the day is " + saladOfTheDay[r] + " .";
+	}
 	private String [] saladOfTheDay = {
 			"Grilled Chicken",
 			"Cripsy Chicken",
 			"Grilled Steak",
 			"Shrimp",
 			"Grilled Salmon",
-
 	};
+
+	private String getDressingOfTheDay()
+	{
+		int r = (int)Math.random()*8;
+		return "The dressing of the day is " + dressingOfTheDay[r] + " .";
+	}
 	private String [] dressingOfTheDay = {
 			"Italian",
 			"Ceaser",
 			"Ranch",
 			"Ginger",
 			"Vinaigrette",
-
 	};
+
+	private String getDrinkOfTheDay()
+	{
+		int r = (int)Math.random()*8;
+		return "The drink of the day is " + drinkOfTheDay[r] + " .";
+	}
 	private String [] drinkOfTheDay = {
 			"Milkshake",
 			"Soda Float",
 			"Fresh Juice",
 			"Holy Water",
 	};
+
+	private String getCompliment();
+	{
+		int r = (int)(Math.random()*5);
+		return compliment[r];
+	}
+
+	private String[] compliment = {"very good.",
+			"delicious.",
+			"excellent.",
+			"well made.",
+	};
+
+	private String getBill(int dessertCount, int soupCount, int dishesCount)
+	{
+		int total = (dessertCount*8) + (dishesCount*12) + (soupCount*9);
+		return "You've ordered: " + soupCount + " soups, " + dishesCount + " dishes, and " + dessertCount + " desserts. Your total is " + total + " dollars.";
+	}
+
+
 
 }

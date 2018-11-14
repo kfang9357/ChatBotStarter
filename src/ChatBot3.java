@@ -3,7 +3,7 @@ import java.util.Scanner;
 /**
  * A program to carry on conversations with a human user.
  * This version:
- * @author Brooklyn Tech CS Department
+ * @author Kelly Fang
  * @version September 2018
  */
 public class ChatBot3
@@ -61,13 +61,11 @@ public class ChatBot3
 			response =  getDessertOfTheNight();
 		}
 
-		else if (findKeyword(statement, "bill") >= 0)
-		{
-			response =  getBill();
-		}
-
 		// Response transforming I want to statement
-
+		else if (findKeyword(statement, "I want the", 0) >= 0)
+		{
+			response = transformIWantTheStatement(statement);
+		}
 		else if (findKeyword(statement, "Do you have ",0) >= 0)
 		{
 			response = transformHowIsThe(statement);
@@ -77,10 +75,10 @@ public class ChatBot3
 			response = getRandomResponses();
 		}
 		
-		return "huh";
+		return response = getBill(int dessertCount, int soupCount, int dishesCount);
 	}
 
-	/**private String transformIWantTheStatement(String statement)
+	private String transformIWantTheStatement(String statement)
 	{
 		//  Remove the final period, if there is one
 		statement = statement.trim();
@@ -95,9 +93,9 @@ public class ChatBot3
 		String restOfStatement = statement.substring(psn + 12).trim();
 		return "I am adding " + restOfStatement + " to your order now.";
 	}
-**/
 
-	private String transformHowIsThe(String statement)
+
+	private String transformHowIsThe(String statement, String[] soupOfTheDay, String[] chefSpecial, String[] dessertOfTheNight)
 	{
 		statement = statement.trim();
 		String lastChar = statement.substring(statement
@@ -112,26 +110,23 @@ public class ChatBot3
 		return "The" + restOfStatement + " is " + getCompliment();
 	}
 
-	private String transformCanIGetk(String statement)
+	private String StatementDoYouHave(String statement)
 	{
 		//  Remove the final period, if there is one
 		statement = statement.trim();
 		String lastChar = statement.substring(statement
 				.length() - 1);
-		if (lastChar.equals("?"))
+		if (lastChar.equals("."))
 		{
 			statement = statement.substring(0, statement
 					.length() - 1);
 		}
-
-		int psn = findKeyword (statement,"Do you have", 0);
-		String testItem = statement.substring(psn + 11).trim();
-
-		if (findOrder() == true) {
-			System.out.println("We do have " + testItem + ".");
-		} else {
-			System.out.println("Sorry, we do not have " + testItem + ".");
-		}
+		
+		int psn = findKeyword (statement, "Do you have", 0);
+		
+		String restOfStatement = statement.substring(psn + 12).trim();
+		String check = findOrder(); //method commented out at the bottom
+		return "We " + check + " have " + restOfStatement + " on our menu tonight.";
 	}
 	
 
@@ -230,21 +225,6 @@ public class ChatBot3
             "Tiramisu",
     };
 
-	private String [] completeMenu = {"Clam Chowder",
-			"Tomato Soup",
-			"French Onion Soup",
-			"Chicken Noodle Soup",
-			"Lentil Soup",
-			"Cauliflower Soup",
-			"Beef Wellington",
-			"Butter Chicken",
-			"Stuffed Pork Tenderloins",
-			"Grilled Salmon",
-			"Fruit Tart",
-			"Macaroons",
-			"Tiramisu",
-	};
-
 	private String getRandomResponses()
     {
         int r = (int)Math.random()*4;
@@ -262,27 +242,39 @@ public class ChatBot3
         return "You've ordered: " + soupCount + " soups, " + dishesCount + " dishes, and " + dessertCount + " desserts. Your total is " + total + " dollars.";
     }
 
-    private String getCompliment()
+	private String getCompliment();
+	{
+		int r = (int)(Math.random()*5);
+		return compliment[r];
+	}
+
+	private String[] compliment = {"very good.",
+			"delicious.",
+			"excellent.",
+			"well made.",
+	};
+
+
+  /**  private String findOrder() I wanted to iterate the rest of the statement thru each array to see if the item was on the menu so i could return do or dont have
     {
-        int r = (int)(Math.random()*5);
-        return compliment[r];
+        for (int o : dessertOfTheNight){
+            if (dessertOfTheNight[o].equals(restOfStatement)) {
+                return "do";
+            }
+            else if (for (int o : chefSpecial){
+            if (!chefSpecial[o].equals(restOfStatement)) {
+                return "do";
+            }
+            else for (int o : soupOfTheDay){
+            if (soupOfTheDay[o].equals(restOfStatement)){
+                return "do";
+
+                else return "don't"
+            }
+        }
     }
 
-    private String[]compliment = {"very good.",
-    "delicious.",
-    "excellent.",
-    "well made.",
-    };
-
-    private boolean findOrder(String testItem, String[]completeMenu)
-    {
-
-		for (int i = 0; i >= completeMenu.length; i++) {
-			if (testItem.equalsIgnoreCase(completeMenu[i])) {
-				return true;
-			} else {
-				return false;
-			}
-		}
     }
+        return false;
+    }**/
 }
