@@ -1,3 +1,4 @@
+
 import java.util.Scanner;
 
 
@@ -7,297 +8,298 @@ import java.util.Scanner;
  * @author Kelly Fang
  * @version September 2018
  */
-public class ChatBot3
-{
+public class ChatBot3 {
 
-	int soupCount = 0;
-	int dishesCount = 0;
-	int dessertCount = 0;
-	String testItem = "";
+    int soupCount = 0;
+    int dishesCount = 0;
+    int dessertCount = 0;
+    String testItem = "";
 
-	boolean foundItem = false;
+    boolean foundItem = false;
 
-	String [] dessertOfTheNight = {"Chocolate Soufle",
-			"Fruit Tart",
-			"Macaroons",
-			"Tiramisu",
-	};
+    String[] dessertOfTheNight = {"Chocolate Soufle",
+            "Fruit Tart",
+            "Macaroons",
+            "Tiramisu",
+    };
 
-	String [] soupOfTheDay = {"Clam Chowder",
-			"Tomato Soup",
-			"French Onion Soup",
-			"Chicken Noodle Soup",
-			"Lentil Soup",
-			"Cauliflower Soup:,"
-	};
+    String[] soupOfTheDay = {"Clam Chowder",
+            "Tomato Soup",
+            "French Onion Soup",
+            "Chicken Noodle Soup",
+            "Lentil Soup",
+            "Cauliflower Soup:,"
+    };
 
-	String [] chefSpecial = {"Filet Mignon",
-			"Beef Wellington",
-			"Butter Chicken",
-			"Stuffed Pork Tenderloins",
-			"Grilled Salmon",
-	};
+    String[] chefSpecial = {"Filet Mignon",
+            "Beef Wellington",
+            "Butter Chicken",
+            "Stuffed Pork Tenderloins",
+            "Grilled Salmon",
+    };
 
-	String [] completeMenu = {"Clam Chowder",
-			"Tomato Soup",
-			"French Onion Soup",
-			"Chicken Noodle Soup",
-			"Lentil Soup",
-			"Cauliflower Soup",
-			"Beef Wellington",
-			"Butter Chicken",
-			"Stuffed Pork Tenderloins",
-			"Grilled Salmon",
-			"Fruit Tart",
-			"Macaroons",
-			"Tiramisu"
-	};
+    String[] completeMenu = {"Clam Chowder",
+            "Tomato Soup",
+            "French Onion Soup",
+            "Chicken Noodle Soup",
+            "Lentil Soup",
+            "Cauliflower Soup",
+            "Beef Wellington",
+            "Butter Chicken",
+            "Stuffed Pork Tenderloins",
+            "Grilled Salmon",
+            "Fruit Tart",
+            "Macaroons",
+            "Tiramisu"
+    };
 
-	public void chatLoop(String statement)
-	{
-		Scanner in = new Scanner (System.in);
-		System.out.println (getGreeting());
+    //String [] order = {};
 
-
-		while (!statement.equals("Bye"))
-		{
+    public void chatLoop(String statement) {
+        Scanner in = new Scanner(System.in);
+        System.out.println(getGreeting());
 
 
-			statement = in.nextLine();
-			//getResponse handles the user reply
-			System.out.println(getResponse(statement));
+        while (!statement.equals("Bye")||!statement.equals("Goodbye")) {
 
 
-		}
-
-	}
-
-	public String getGreeting()
-	{
-		return "Would you like to learn about the soup of the day, chef's special, or dessert of the night?";
-	}
-
-	public String getResponse(String statement)
-	{
-		String response = "";
-
-		if (statement.length() == 0)
-		{
-			response = "Say something, please.";
-		}
-
-		else if (findKeyword(statement, "soup") >= 0)
-		{
-			response = getSoupOfTheDay();
-
-		}
-
-		else if (findKeyword(statement, "chef's") >= 0)
-		{
-			response =  getChefsSpecial();
-		}
-		else if (findKeyword(statement, "dessert") >= 0)
-		{
-			response =  getDessertOfTheNight();
-		}
-
-		else if (findKeyword(statement, "bill") >= 0)
-		{
-			response =  getBill();
-		}
-
-		// Response transforming I want to statement
-
-		else if (findKeyword(statement, "Do you have ",0) >= 0)
-		{
-			response = transformHowIsThe(statement);
-		}
-		else
-		{
-			response = getRandomResponses();
-		}
-
-		return "huh";
-	}
-
-	/**private String transformIWantTheStatement(String statement)
-	 {
-	 //  Remove the final period, if there is one
-	 statement = statement.trim();
-	 String lastChar = statement.substring(statement
-	 .length() - 1);
-	 if (lastChar.equals("."))
-	 {
-	 statement = statement.substring(0, statement
-	 .length() - 1);
-	 }
-	 int psn = findKeyword (statement, "Do you have", 0);
-	 String restOfStatement = statement.substring(psn + 12).trim();
-	 return "I am adding " + restOfStatement + " to your order now.";
-	 }
-	 **/
-
-	private String transformHowIsThe(String statement)
-	{
-		statement = statement.trim();
-		String lastChar = statement.substring(statement
-				.length() - 1);
-		if (lastChar.equals("."))
-		{
-			statement = statement.substring(0, statement
-					.length() - 1);
-		}
-		int psn = findKeyword (statement, "How is the", 0);
-		String restOfStatement = statement.substring(psn+11).trim();
-		return "The" + restOfStatement + " is " + getCompliment();
-	}
-
-	private String transformCanIGetk(String statement)
-	{
-		//  Remove the final period, if there is one
-		Scanner input = new Scanner (System.in);
-		statement = input.nextLine();
-		statement = statement.trim();
-		String lastChar = statement.substring(statement
-				.length() - 1);
-		if (lastChar.equals("?"))
-		{
-			statement = statement.substring(0, statement
-					.length() - 1);
-		}
-		int psn = findKeyword (statement,"Do you have", 0);
-		String testItem = statement.substring(psn + 11).trim();
-
-		if (foundItem == true) {
-			System.out.println("We do have " + testItem + ".");
-		} else {
-			System.out.println("Sorry, we do not have " + testItem + ".");
-		}
+            statement = in.nextLine();
+            //getResponse handles the user reply
+            System.out.println(getResponse(statement));
 
 
+        }
 
-/**
- if (findOrder(String testItem, String[] completeMenu) == true) {
- System.out.println("We do have " + testItem + ".");
- } else {
- System.out.println("Sorry, we do not have " + testItem + ".");
- }
- **/
-	}
+    }
+
+    public String getGreeting() {
+        return "Would you like to learn about the soup of the day, chef's special, or dessert of the night?";
+    }
+
+    public String getResponse(String statement) {
+        String response = "";
+
+        if (statement.length() == 0) {
+            response = "Say something, please.";
+        } else if (findKeyword(statement, "soup") >= 0) {
+            response = getSoupOfTheDay(String[]soupOfTheDay);
+            Scanner input = new Scanner(System.in);
+            statement = input.nextLine();
+            statement = statement.trim();
+            if (statement.equalsIgnoreCase("yes")) {
+                soupCount++;
+            }
+
+        } else if (findKeyword(statement, "chef's") >= 0) {
+            response = getChefsSpecial(String[]chefSpecial);
+            Scanner input = new Scanner(System.in);
+            statement = input.nextLine();
+            statement = statement.trim();
+            if (statement.equalsIgnoreCase("yes")) {
+                dishesCount++;
+            }
+        } else if (findKeyword(statement, "dessert") >= 0) {
+            response = getDessertOfTheNight(String[]dessertOfTheNight);
+            Scanner input = new Scanner(System.in);
+            statement = input.nextLine();
+            statement = statement.trim();
+            if (statement.equalsIgnoreCase("yes")) {
+                dessertCount++;
+            }
+        } else if (findKeyword(statement, "bill") >= 0) {
+            response = getBill(dessertCount, soupCount, dishesCount);
+        }
+
+        // Response transforming I want to statement
+
+        else if (findKeyword(statement, "Do you have ", 0) >= 0) {
+            response = transformHowIsThe(statement);
+        } else {
+            response = getRandomResponses();
+        }
+
+        return "Come back soon!";
+    }
+
+    /**
+     * private String transformIWantTheStatement(String statement)
+     * {
+     * //  Remove the final period, if there is one
+     * statement = statement.trim();
+     * String lastChar = statement.substring(statement
+     * .length() - 1);
+     * if (lastChar.equals("."))
+     * {
+     * statement = statement.substring(0, statement
+     * .length() - 1);
+     * }
+     * int psn = findKeyword (statement, "Do you have", 0);
+     * String restOfStatement = statement.substring(psn + 12).trim();
+     * return "I am adding " + restOfStatement + " to your order now.";
+     * }
+     **/
+
+    private String transformHowIsThe(String statement) {
+        statement = statement.trim();
+        String lastChar = statement.substring(statement
+                .length() - 1);
+        if (lastChar.equals(".")) {
+            statement = statement.substring(0, statement
+                    .length() - 1);
+        }
+        int psn = findKeyword(statement, "How is the", 0);
+        String restOfStatement = statement.substring(psn + 11).trim();
+        return "The" + restOfStatement + " is " + getCompliment();
+    }
+
+    private String transformCanIGet(String statement) {
+        //  Remove the final period, if there is one
+        Scanner input = new Scanner(System.in);
+        statement = input.nextLine();
+        statement = statement.trim();
+        String lastChar = statement.substring(statement
+                .length() - 1);
+        if (lastChar.equals("?")) {
+            statement = statement.substring(0, statement
+                    .length() - 1);
+        }
+        int psn = findKeyword(statement, "Do you have", 0);
+        String testItem = statement.substring(psn + 11).trim();
+
+        if (foundItem == true) {
+            return "We do have " + testItem + ".";
+        } else {
+            return "Sorry, we do not have " + testItem + ".";
+        }
+
+    }
 
 
-	//private String
-
-	private int findKeyword(String statement, String goal,
-							int startPos)
-	{
-		String phrase = statement.trim().toLowerCase();
-		goal = goal.toLowerCase();
-
-		// The only change to incorporate the startPos is in
-		// the line below
-		int psn = phrase.indexOf(goal, startPos);
-
-		// Refinement--make sure the goal isn't part of a
-		// word
-		while (psn >= 0)
-		{
-			// Find the string of length 1 before and after
-			// the word
-			String before = " ", after = " ";
-			if (psn > 0)
-			{
-				before = phrase.substring(psn - 1, psn);
-			}
-			if (psn + goal.length() < phrase.length())
-			{
-				after = phrase.substring(
-						psn + goal.length(),
-						psn + goal.length() + 1);
-			}
-
-			// If before and after aren't letters, we've
-			// found the word
-			if (((before.compareTo("a") < 0) || (before
-					.compareTo("z") > 0)) // before is not a
-					// letter
-					&& ((after.compareTo("a") < 0) || (after
-					.compareTo("z") > 0)))
-			{
-				return psn;
-			}
-
-			// The last position didn't work, so let's find
-			// the next, if there is one.
-			psn = phrase.indexOf(goal, psn + 1);
-
-		}
-
-		return -1;
-	}
-
-	private int findKeyword(String statement, String goal)
-	{
-		return findKeyword (statement, goal, 0);
-	}
 
 
-	private String getSoupOfTheDay()
-	{
-		int r = (int)Math.random()*8;
-		return "The soup of the day is " + soupOfTheDay[r] + " .";
-	}
 
-	private String getChefsSpecial()
-	{
-		int r =(int)Math.random()*6;
-		return "The chef's special is " + chefSpecial[r] + " .";
-	}
-
-	private String getDessertOfTheNight() {
-		int r = (int) Math.random() * 5;
-		return "The dessert of the night is " + dessertOfTheNight[r] + " .";
-	}
+    /**
+     if (findOrder(String testItem, String[] completeMenu) == true) {
+     System.out.println("We do have " + testItem + ".");
+     } else {
+     System.out.println("Sorry, we do not have " + testItem + ".");
+     }
+     **/
 
 
-	private String getRandomResponses()
-	{
-		int r = (int)Math.random()*4;
-		return randomResponses[r];
-	}
 
-	private String [] randomResponses = {"Can I get you anything else?",
-			"Is there anything else you want?",
-			"How else can I help you?",
-	};
+    //private String
 
-	private String getBill(int dessertCount, int soupCount, int dishesCount)
-	{
-		int total = (dessertCount*8) + (dishesCount*12) + (soupCount*9);
-		return "You've ordered: " + soupCount + " soups, " + dishesCount + " dishes, and " + dessertCount + " desserts. Your total is " + total + " dollars.";
-	}
+    private int findKeyword(String statement, String goal,
+                            int startPos)
+    {
+        String phrase = statement.trim().toLowerCase();
+        goal = goal.toLowerCase();
 
-	private String getCompliment()
-	{
-		int r = (int)(Math.random()*5);
-		return compliment[r];
-	}
+        // The only change to incorporate the startPos is in
+        // the line below
+        int psn = phrase.indexOf(goal, startPos);
 
-	private String[]compliment = {"very good.",
-			"delicious.",
-			"excellent.",
-			"well made.",
-	};
+        // Refinement--make sure the goal isn't part of a
+        // word
+        while (psn >= 0)
+        {
+            // Find the string of length 1 before and after
+            // the word
+            String before = " ", after = " ";
+            if (psn > 0)
+            {
+                before = phrase.substring(psn - 1, psn);
+            }
+            if (psn + goal.length() < phrase.length())
+            {
+                after = phrase.substring(
+                        psn + goal.length(),
+                        psn + goal.length() + 1);
+            }
 
-	private void findOrder(String testItem, String[]completeMenu)
-	{
+            // If before and after aren't letters, we've
+            // found the word
+            if (((before.compareTo("a") < 0) || (before
+                    .compareTo("z") > 0)) // before is not a
+                    // letter
+                    && ((after.compareTo("a") < 0) || (after
+                    .compareTo("z") > 0)))
+            {
+                return psn;
+            }
 
-		for (int i = 0; i >= completeMenu.length; i++) {
-			if (testItem.equalsIgnoreCase(completeMenu[i])) {
-				foundItem = true;
-			} else {
-				foundItem = false;
-			}
-		}
-	}
+            // The last position didn't work, so let's find
+            // the next, if there is one.
+            psn = phrase.indexOf(goal, psn + 1);
+
+        }
+
+        return -1;
+    }
+
+    private int findKeyword(String statement, String goal)
+    {
+        return findKeyword (statement, goal, 0);
+    }
+
+
+    private String getSoupOfTheDay(String[]soupOfTheDay)
+    {
+        int r = (int)Math.random()*8;
+        return "The soup of the day is " + soupOfTheDay[r] + " . Would you like to add that to your order?";
+    }
+
+    private String getChefsSpecial()
+    {
+        int r =(int)Math.random()*6;
+        return "The chef's special is " + chefSpecial[r] + " . Would you like to add that to your order?";
+    }
+
+    private String getDessertOfTheNight() {
+        int r = (int) Math.random() * 5;
+        return "The dessert of the night is " + dessertOfTheNight[r] + " . Would you like to add that to your order?";
+    }
+
+
+    private String getRandomResponses()
+    {
+        int r = (int)Math.random()*4;
+        return randomResponses[r];
+    }
+
+    private String [] randomResponses = {"Can I get you anything else?",
+            "Is there anything else you want?",
+            "How else can I help you?",
+    };
+
+    private String getBill(int dessertCount, int soupCount, int dishesCount)
+    {
+        int total = (dessertCount*8) + (dishesCount*12) + (soupCount*9);
+        return "You've ordered: " + soupCount + " soups, " + dishesCount + " dishes, and " + dessertCount + " desserts. Your total is " + total + " dollars.";
+    }
+
+    private String getCompliment()
+    {
+        int r = (int)(Math.random()*5);
+        return compliment[r];
+    }
+
+    private String[]compliment = {"very good.",
+            "delicious.",
+            "excellent.",
+            "well made.",
+    };
+
+    private void findOrder(String testItem, String[]completeMenu)
+    {
+
+        for (int i = 0; i >= completeMenu.length; i++) {
+            if (testItem.equalsIgnoreCase(completeMenu[i])) {
+                foundItem = true;
+            } else {
+                foundItem = false;
+            }
+        }
+    }
 }
